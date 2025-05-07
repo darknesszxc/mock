@@ -1,6 +1,7 @@
 package com.example.mock.controller;
 
 import com.example.mock.model.User;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,7 @@ public class RestApiController {
     }
 
     @PostMapping(value = "/authenticate", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> authenticate(@RequestBody User inputUser) {
+    public ResponseEntity<User> authenticate( @Valid @RequestBody User inputUser) {
         sleepRandomTime();
         User userWithDate = new User(inputUser.getLogin(), inputUser.getPassword());
         System.out.println("Returning user: " + userWithDate);
