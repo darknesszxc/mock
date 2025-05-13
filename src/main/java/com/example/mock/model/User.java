@@ -16,14 +16,27 @@ import java.time.format.DateTimeFormatter;
 public class User {
     @NotBlank(message = "Login cannot be blank")
     private String login;
+
     @NotBlank(message = "Password cannot be blank")
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
     private String date;
 
-    public User(String login, String password) {
+    public void setLogin(String login) {
         this.login = login;
+        setDateIfNull();
+    }
+
+    public void setPassword(String password) {
         this.password = password;
-        this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        setDateIfNull();
+    }
+
+    private void setDateIfNull() {
+        if (this.date == null) {
+            this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        }
     }
 }
+

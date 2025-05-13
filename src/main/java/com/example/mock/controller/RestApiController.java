@@ -28,8 +28,7 @@ public class RestApiController {
     @PostMapping(value = "/authenticate", consumes = "application/json", produces = "application/json")
     public ResponseEntity<User> authenticate( @Valid @RequestBody User inputUser) {
         sleepRandomTime();
-        User userWithDate = new User(inputUser.getLogin(), inputUser.getPassword());
-        System.out.println("Returning user: " + userWithDate);
-        return ResponseEntity.ok(userWithDate);
+        System.out.println("Returning user: " + inputUser);
+        return ResponseEntity.ok(inputUser);
     }
 }
