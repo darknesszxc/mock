@@ -6,8 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+
+import java.sql.Date;
 
 @Getter
 @Setter
@@ -21,22 +22,17 @@ public class User {
     @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
 
-    private String date;
+    private Date date;
+    private String email;
 
-    public void setLogin(String login) {
+    public User(String login, String password, Date date, String email) {
         this.login = login;
-        setDateIfNull();
-    }
-
-    public void setPassword(String password) {
         this.password = password;
-        setDateIfNull();
+        this.date = date;
+        this.email = email;
     }
 
-    private void setDateIfNull() {
-        if (this.date == null) {
-            this.date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        }
-    }
+
+
 }
 
