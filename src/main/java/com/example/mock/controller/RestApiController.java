@@ -31,9 +31,6 @@ public class RestApiController {
         sleepRandomTime();
         try {
             User user = dbWorker.getUserByLogin(login);
-            if (user == null) {
-                throw new RuntimeException("Пользователь не найден: " + login);
-            }
             return ResponseEntity.ok(user);
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
@@ -44,10 +41,7 @@ public class RestApiController {
     public ResponseEntity<?> authenticate(@Valid @RequestBody User inputUser) {
         sleepRandomTime();
         try {
-            if (inputUser.getDate() == null) {
-                inputUser.setDate(Date.valueOf(LocalDateTime.now().toLocalDate()));
-            }
-
+            inputUser.setDate(Date.valueOf(LocalDateTime.now().toLocalDate()));
             int inserted = dbWorker.insertUser(inputUser);
             return ResponseEntity.ok("Добавлено строк: " + inserted);
         } catch (RuntimeException e) {

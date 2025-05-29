@@ -25,8 +25,9 @@ public class DataBaseWorker {
                             rs.getDate("date"),
                             rs.getString("email")
                     );
+                } else {
+                    throw new RuntimeException("Пользователь не найден: " + login);
                 }
-                return null;
             }
         } catch (SQLException e) {
             throw new RuntimeException("Ошибка при выполнении SELECT запроса: " + e.getMessage(), e);
