@@ -1,6 +1,6 @@
 package com.example.mock.controller;
 
-import com.example.mock.controller.DataBaseWorker;
+import com.example.mock.worker.DataBaseWorker;
 import com.example.mock.model.User;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
