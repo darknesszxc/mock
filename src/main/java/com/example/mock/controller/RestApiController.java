@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.concurrent.TimeUnit;
@@ -19,8 +18,13 @@ import java.util.concurrent.TimeUnit;
 @RequestMapping("/api")
 public class RestApiController {
 
-    private final DataBaseWorker dbWorker = new DataBaseWorker();
-    private final FileWorker fileWorker = new FileWorker();
+    private final DataBaseWorker dbWorker;
+    private final FileWorker fileWorker;
+
+    public RestApiController(DataBaseWorker dbWorker, FileWorker fileWorker) {
+        this.dbWorker = dbWorker;
+        this.fileWorker = fileWorker;
+    }
 
     private void sleepRandomTime() {
         try {

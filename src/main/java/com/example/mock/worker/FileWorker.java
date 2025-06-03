@@ -1,9 +1,9 @@
 package com.example.mock.worker;
+import org.springframework.stereotype.Component;
 import java.io.*;
-import java.nio.file.*;
-import java.util.List;
 import java.util.Random;
 
+@Component
 public class FileWorker {
 
     private static final String WRITE_FILE_PATH = "user-log.txt";
@@ -21,15 +21,20 @@ public class FileWorker {
 
     // Метод для чтения случайной строки из файла
     public String readRandomLine() {
-        try {
-            List<String> lines = Files.readAllLines(Paths.get(READ_FILE_PATH));
-            if (lines.isEmpty()) return "Файл пустой.";
-            int randomIndex = new Random().nextInt(lines.size());
-            return lines.get(randomIndex);
+        int totalLines = 10;
+        int randomLineNumber = new Random().nextInt(totalLines); // от 0 до 9
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(READ_FILE_PATH))) {
+            for (int i = 0; i < randomLineNumber; i++) {
+                reader.readLine(); // пропускаем строки
+            }
+            String line = reader.readLine(); // читаем нужную строку
+            return line != null ? line : "Строка не найдена.";
         } catch (IOException e) {
             throw new RuntimeException("Ошибка при чтении файла: " + e.getMessage(), e);
         }
     }
+
 
 
 }
